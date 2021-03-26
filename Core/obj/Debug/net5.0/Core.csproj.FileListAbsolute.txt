@@ -1,0 +1,12 @@
+/home/salles/Documents/Projects/ApiRabbit/Core/bin/Debug/net5.0/Core.deps.json
+/home/salles/Documents/Projects/ApiRabbit/Core/bin/Debug/net5.0/Core.dll
+/home/salles/Documents/Projects/ApiRabbit/Core/bin/Debug/net5.0/ref/Core.dll
+/home/salles/Documents/Projects/ApiRabbit/Core/bin/Debug/net5.0/Core.pdb
+/home/salles/Documents/Projects/ApiRabbit/Core/obj/Debug/net5.0/Core.csprojAssemblyReference.cache
+/home/salles/Documents/Projects/ApiRabbit/Core/obj/Debug/net5.0/Core.GeneratedMSBuildEditorConfig.editorconfig
+/home/salles/Documents/Projects/ApiRabbit/Core/obj/Debug/net5.0/Core.AssemblyInfoInputs.cache
+/home/salles/Documents/Projects/ApiRabbit/Core/obj/Debug/net5.0/Core.AssemblyInfo.cs
+/home/salles/Documents/Projects/ApiRabbit/Core/obj/Debug/net5.0/Core.csproj.CoreCompileInputs.cache
+/home/salles/Documents/Projects/ApiRabbit/Core/obj/Debug/net5.0/Core.dll
+/home/salles/Documents/Projects/ApiRabbit/Core/obj/Debug/net5.0/ref/Core.dll
+/home/salles/Documents/Projects/ApiRabbit/Core/obj/Debug/net5.0/Core.pdb

@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "H9qvcJBFeZKkToefiAyGscCd8jS2z9EAGCXv+v8qj8A1STo+TIl/vcIHNNba+b7H3Fy+3igz7sP6nPRaLXtxmw==",
+  "success": true,
+  "projectFilePath": "/home/salles/Documents/Projects/ApiRabbit/Core/Core.csproj",
+  "expectedPackageFiles": [
+    "/home/salles/.nuget/packages/microsoft.extensions.configuration/5.0.0/microsoft.extensions.configuration.5.0.0.nupkg.sha512",
+    "/home/salles/.nuget/packages/microsoft.extensions.configuration.abstractions/5.0.0/microsoft.extensions.configuration.abstractions.5.0.0.nupkg.sha512",
+    "/home/salles/.nuget/packages/microsoft.extensions.primitives/5.0.0/microsoft.extensions.primitives.5.0.0.nupkg.sha512",
+    "/home/salles/.nuget/packages/rabbitmq.client/6.2.1/rabbitmq.client.6.2.1.nupkg.sha512",
+    "/home/salles/.nuget/packages/system.memory/4.5.4/system.memory.4.5.4.nupkg.sha512",
+    "/home/salles/.nuget/packages/system.threading.channels/4.7.1/system.threading.channels.4.7.1.nupkg.sha512"
+  ],
+  "logs": []
+}
