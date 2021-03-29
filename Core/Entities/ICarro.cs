@@ -1,6 +1,6 @@
 namespace Core.Entities
 {
-    public interface ICarro
+    public interface ICarro : IEntity
     {
         string Fabricante { get; set; }
         string Modelo { get; set; }

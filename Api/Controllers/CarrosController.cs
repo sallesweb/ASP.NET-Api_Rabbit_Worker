@@ -5,15 +5,17 @@ namespace Api.Controllers
     using Core.Entities;
     using Core.Factories;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
     using RabbitMQ.Client;
 
     [ApiController]
     [Route("/v1/[controller]")]
-    public sealed class CarrosController : ControllerBase
+    public sealed class CarrosController : BaseController<Carro>
     {
         public IActionResult Create(
             [FromBody] Carro request,
-            [FromServices] IConnectionRabbitFactory rabbit)
+            [FromServices] IConnectionRabbitFactory rabbit,
+            [FromServices] ILogger<CarrosController> logger)
         {
             using (var connection = rabbit.CreateConnection())
             using (var channel = connection.CreateModel())
@@ -22,7 +24,9 @@ namespace Api.Controllers
 
                 channel.QueueDeclare(queue: queue, durable: true, exclusive: false, autoDelete: false, arguments: null);
 
-                var message = JsonSerializer.Serialize<Carro>(request);
+                var queueMessage = base.BuildQueueMessage(request);
+                var message = JsonSerializer
+                    .Serialize<QueueMessage<Carro>>(queueMessage);
                 var body = Encoding.UTF8.GetBytes(message);
 
                 var properties = channel.CreateBasicProperties();

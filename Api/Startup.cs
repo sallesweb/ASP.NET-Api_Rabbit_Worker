@@ -1,5 +1,6 @@
 namespace Api
 {
+    using Api.Middlewares;
     using Core.Factories;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -34,10 +35,10 @@ namespace Api
 
             services.AddSingleton<IConnectionRabbitFactory, ConnectionRabbitFactory>();
 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Api", Version = "v1" });
-            });
+            // services.AddSwaggerGen(c =>
+            // {
+            //     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Api", Version = "v1" });
+            // });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,13 +47,15 @@ namespace Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Api v1"));
+                // app.UseSwagger();
+                // app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Api v1"));
             }
 
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
+
+            app.UseLoggingMiddleware();
 
             app.UseEndpoints(endpoints =>
             {

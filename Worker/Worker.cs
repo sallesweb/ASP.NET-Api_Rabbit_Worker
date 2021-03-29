@@ -8,20 +8,16 @@ namespace Worker
     using Core.Entities;
     using Core.Factories;
     using Microsoft.Extensions.Hosting;
-    using Microsoft.Extensions.Logging;
     using RabbitMQ.Client;
     using RabbitMQ.Client.Events;
+    using Serilog;
 
     public class Worker : BackgroundService
     {
-        private readonly ILogger _logger;
         private readonly IConnectionRabbitFactory _rabbit;
 
-        public Worker(
-            ILogger<Worker> logger,
-            IConnectionRabbitFactory rabbit)
+        public Worker(IConnectionRabbitFactory rabbit)
         {
-            _logger = logger;
             this._rabbit = rabbit;
         }
 
@@ -41,16 +37,37 @@ namespace Worker
                     {
                         var body = ea.Body.ToArray();
                         var message = Encoding.UTF8.GetString(body);
-                        var carro = JsonSerializer.Deserialize<Carro>(message);
 
-                        Console.WriteLine($"Fabricante: {carro.Fabricante}, Modelo: {carro.Modelo}, Cor: {carro.Cor}");
+                        switch (ea.RoutingKey)
+                        {
+                            case "queue_carros":
+                                {
+                                    var queueMessage = JsonSerializer
+                                        .Deserialize<QueueMessage<Carro>>(message);
+
+                                    try
+                                    {
+                                        Console.WriteLine($"Fabricante: {queueMessage.Entity.Fabricante}, Modelo: {queueMessage.Entity.Modelo}, Cor: {queueMessage.Entity.Cor}");
+                                        break;
+                                    }
+                                    catch (System.Exception)
+                                    {
+                                        var log = $@"
+                                            trace_id: {queueMessage.TraceId},
+                                            entity: {JsonSerializer.Serialize<Carro>(queueMessage.Entity)},
+                                            message: Erro ao persistir o carro no BD.";
+
+                                        throw new Exception(log);
+                                    }
+                                }
+                        }
 
                         channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
                     }
-                    catch (System.Exception)
+                    catch (System.Exception ex)
                     {
-                        channel.BasicNack(deliveryTag: ea.DeliveryTag, multiple: false, requeue: true);
-                        throw;
+                        Log.Error(ex.Message);
+                        channel.BasicNack(deliveryTag: ea.DeliveryTag, multiple: false, requeue: false);
                     }
                 };
                 channel.BasicConsume(queue: queue, autoAck: false, consumer: consumer);
